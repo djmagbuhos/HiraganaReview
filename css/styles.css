@@ -1,4 +1,5 @@
 :root {
+    /* Dark Theme */
     --bg-color: #131314;
     --surface-color: #1E1F20;
     --surface-hover: #2D2E30;
@@ -7,6 +8,8 @@
     --accent-color: #8AB4F8;
     --accent-hover: #A8C7FA;
     --error-color: #F2B8B5;
+    --correct-color: #81C995;
+    /* Green for correct answers */
     --input-bg: #282A2C;
     --border-color: #444746;
 }
