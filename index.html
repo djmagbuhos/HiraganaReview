@@ -12,7 +12,7 @@
     <div class="app-container">
 
         <div class="header-icon">
-            <img src="img/dj-hira-logo.png" class="dj-hiragana-logo" alt="dj-hiragana-logo">
+            <img src="img/dj-hira-logo.png" class="dj-hiragana-logo" alt="Japanese Vocabulary by DJ Magbuhos">
         </div>
 
         <div id="menu-screen" class="screen active">
@@ -23,34 +23,53 @@
                     
                     <button class="menu-btn review-mode-btn" onclick="showReview()">
                         <span class="btn-title">View Hiragana Chart</span>
-                        <span class="btn-desc">Review all characters (Basic & Dakuten)</span>
+                        <span class="btn-desc">Reference Sheet</span>
                     </button>
 
                     <div class="divider"></div>
-                    <p>Select a test mode.</p>
-                    <div class="section-label">Character Test</div>
-
-                    <div class="btn-row">
-                        <button class="menu-btn half" onclick="startQuiz('chars', 1)">
-                            <span class="btn-title">Stage 1</span>
-                            <span class="btn-desc">Basic Only</span>
-                        </button>
-                        <button class="menu-btn half" onclick="startQuiz('chars', 2)">
-                            <span class="btn-title">Stage 2</span>
-                            <span class="btn-desc">With Dakuten</span>
-                        </button>
+                    
+                    <div class="section-label">Learning Progress</div>
+                    <div class="learning-list-container">
+                        <button class="menu-btn learning-btn" onclick="startLearning('1.1')">1.1 Hiragana Part 01</button>
+                        <button class="menu-btn learning-btn" onclick="startLearning('1.2')">1.2 Hiragana Part 02</button>
+                        <button class="menu-btn learning-btn" onclick="startLearning('1.3')">1.3 Hiragana Part 03</button>
+                        <button class="menu-btn learning-btn" onclick="startLearning('1.4')">1.4 Hiragana Part 04</button>
+                        <button class="menu-btn learning-btn" onclick="startLearning('1.5')">1.5 Hiragana Part 05</button>
+                        <button class="menu-btn learning-btn" onclick="startLearning('1.6')">1.6 Hiragana Part 06</button>
+                        <button class="menu-btn learning-btn" onclick="startLearning('1.7')">1.7 Hiragana Part 07</button>
+                        <button class="menu-btn learning-btn" onclick="startLearning('1.8')">1.8 Hiragana Part 08</button>
+                        <button class="menu-btn learning-btn" onclick="startLearning('1.9')">1.9 Hiragana Part 09</button>
+                        <button class="menu-btn learning-btn" onclick="startLearning('2.0')">2.0 Hiragana Part 10</button>
+                        <button class="menu-btn learning-btn" onclick="startLearning('3.0')">3.0 Hiragana Part 11</button>
+                        <button class="menu-btn learning-btn" onclick="startLearning('3.1')">3.1 Hiragana Part 12</button>
+                        <button class="menu-btn learning-btn" onclick="startLearning('3.2')">3.2 Hiragana Part 13</button>
+                        <button class="menu-btn learning-btn" onclick="startLearning('3.3')">3.3 Hiragana Part 14</button>
+                        <button class="menu-btn learning-btn" onclick="startLearning('3.4')">3.4 Hiragana Part 15</button>
                     </div>
 
                     <div class="divider"></div>
-                    <div class="section-label">Word Test (20 items)</div>
+                    <div class="section-label">Character Test (20 ITEMS)</div>
+
+                    <div class="btn-row">
+                        <button class="menu-btn half" onclick="startQuiz('chars', 1)">
+                            <span class="btn-title">Char Stage 1</span>
+                            <span class="btn-desc">Basic</span>
+                        </button>
+                        <button class="menu-btn half" onclick="startQuiz('chars', 2)">
+                            <span class="btn-title">Char Stage 2</span>
+                            <span class="btn-desc">Dakuten</span>
+                        </button>
+                    </div>
+
+                    <div class="section-label">Word Test(20 ITEMS)</div>
 
                     <div class="btn-row">
                         <button class="menu-btn half" onclick="startQuiz('words', 1)">
-                            <span class="btn-title">Stage 1</span>
+                            <span class="btn-title">Word Stage 1</span>
                             <span class="btn-desc">Basic Words</span>
                         </button>
                         <button class="menu-btn half" onclick="startQuiz('words', 2)">
-                            <span class="btn-title">Stage 2</span>
+                            <span class="btn-title">Word Stage 2</span>
                             <span class="btn-desc">Advanced</span>
                         </button>
                     </div>
@@ -59,12 +78,26 @@
             </div>
         </div>
 
+        <div id="learning-screen" class="screen">
+            <h1 id="learning-title">Lesson 1.1</h1>
+            <p id="learning-instruction">Memorize these letters</p>
+            
+            <div class="question-card">
+                <div class="question-display" id="learning-char">あ</div>
+                <div class="learning-romaji" id="learning-romaji">a</div>
+            </div>
+            
+            <input type="text" id="learning-input" placeholder="Type answer..." autocomplete="off" style="display:none;">
+            
+            <button class="action-btn" id="learning-action-btn" onclick="handleLearningAction()">Next</button>
+            <button class="text-btn" onclick="switchScreen('menu')">Quit Lesson</button>
+        </div>
+
         <div id="review-screen" class="screen">
             <h1>Hiragana Chart</h1>
             <p>Scroll to view all</p>
             
-            <div id="review-grid" class="review-grid">
-                </div>
+            <div id="review-grid" class="review-grid"></div>
 
             <button class="action-btn secondary" onclick="switchScreen('menu')">Back to Menu</button>
         </div>
@@ -101,7 +134,30 @@
                 <h2 id="modal-correct-answer">ka</h2>
                 <p id="modal-translation" class="translation-text"></p>
             </div>
-            <button class="action-btn secondary" onclick="closeModal()">Next Question</button>
+            <button class="action-btn secondary" onclick="closeModal()">Next</button>
+        </div>
+    </div>
+    
+    <div id="level-complete-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header" style="color: var(--correct-color);">Lesson Complete!</div>
+            <div class="modal-body">
+                <p>Good job! You finished this part.</p>
+                <p>Do you want to proceed to the next lesson?</p>
+            </div>
+            <button class="action-btn" onclick="proceedToNextLevel()">Yes, Next Lesson</button>
+            <button class="action-btn secondary" onclick="location.reload()">No, Back to Menu</button>
+        </div>
+    </div>
+
+    <div id="practice-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header" style="color: var(--accent-color);">Practice Time!</div>
+            <div class="modal-body">
+                <p>You have viewed all the letters.</p>
+                <p>Now, let's try to guess them!</p>
+            </div>
+            <button class="action-btn" onclick="startPracticePhase()">Start Practice</button>
         </div>
     </div>
 

@@ -23,9 +23,8 @@ const dakuChars = [
     { q: 'ぱ', a: 'pa' }, { q: 'ぴ', a: 'pi' }, { q: 'ぷ', a: 'pu' }, { q: 'ぺ', a: 'pe' }, { q: 'ぽ', a: 'po' }
 ];
 
-// 3. Basic Words (STAGE 1: No Dakuten/Handakuten)
+// 3. Words (Stage 1: Basic)
 const basicWords = [
-    // Original List
     { q: 'いえ', a: 'ie', t: 'House' }, { q: 'あお', a: 'ao', t: 'Blue' }, { q: 'あか', a: 'aka', t: 'Red' },
     { q: 'えき', a: 'eki', t: 'Station' }, { q: 'うえ', a: 'ue', t: 'Up' }, { q: 'した', a: 'shita', t: 'Down' },
     { q: 'ねこ', a: 'neko', t: 'Cat' }, { q: 'いぬ', a: 'inu', t: 'Dog' }, { q: 'とり', a: 'tori', t: 'Bird' },
@@ -42,8 +41,6 @@ const basicWords = [
     { q: 'あき', a: 'aki', t: 'Autumn' }, { q: 'はる', a: 'haru', t: 'Spring' }, { q: 'うし', a: 'ushi', t: 'Cow' },
     { q: 'うま', a: 'uma', t: 'Horse' }, { q: 'さる', a: 'saru', t: 'Monkey' }, { q: 'おかね', a: 'okane', t: 'Money' },
     { q: 'おなか', a: 'onaka', t: 'Stomach' }, { q: 'せなか', a: 'senaka', t: 'Back' }, { q: 'あたま', a: 'atama', t: 'Head' },
-
-    // New Additions (Stage 1)
     { q: 'かいしゃいん', a: 'kaishain', t: 'Company Employee' }, { q: 'しゃいん', a: 'shain', t: 'Employee' },
     { q: 'しゃちょう', a: 'shachou', t: 'Company President' }, { q: 'かちょう', a: 'kachou', t: 'Section Manager' },
     { q: 'おとこ', a: 'otoko', t: 'Male' }, { q: 'おんな', a: 'onna', t: 'Female' },
@@ -76,9 +73,8 @@ const basicWords = [
     { q: 'よる', a: 'yoru', t: 'Night' }
 ];
 
-// 4. Advanced Words (STAGE 2: Contains Dakuten/Handakuten)
+// 4. Words (Stage 2: Advanced/Dakuten)
 const advancedWords = [
-    // Original List
     { q: 'がくせい', a: 'gakusei', t: 'Student' }, { q: 'だいがく', a: 'daigaku', t: 'University' },
     { q: 'げんき', a: 'genki', t: 'Healthy/Lively' }, { q: 'ともだち', a: 'tomodachi', t: 'Friend' },
     { q: 'かばん', a: 'kaban', t: 'Bag' }, { q: 'えんぴつ', a: 'enpitsu', t: 'Pencil' },
@@ -101,8 +97,6 @@ const advancedWords = [
     { q: 'しごと', a: 'shigoto', t: 'Job/Work' }, { q: 'べんきょう', a: 'benkyou', t: 'Study' },
     { q: 'だいじょうぶ', a: 'daijoubu', t: 'Okay' }, { q: 'ありがとう', a: 'arigatou', t: 'Thank You' },
     { q: 'ごめんなさい', a: 'gomennasai', t: 'Sorry' }, { q: 'こんばんは', a: 'konbanwa', t: 'Good Evening' },
-
-    // New Additions (Stage 2)
     { q: 'ぶちょう', a: 'buchou', t: 'Department Head' }, { q: 'にほんじん', a: 'nihonjin', t: 'Japanese Person' },
     { q: 'あめりかじん', a: 'amerikajin', t: 'American' }, { q: 'ふぃりぴんじん', a: 'firipinjin', t: 'Filipino' },
     { q: 'えんじにあ', a: 'enjinia', t: 'Engineer' }, { q: 'おふぃす', a: 'ofisu', t: 'Office' },
@@ -127,50 +121,98 @@ const advancedWords = [
     { q: 'ごご', a: 'gogo', t: 'Afternoon (PM)' }, { q: 'つぎ', a: 'tsugi', t: 'Next' }
 ];
 
-
-// --- VARIABLES ---
+// --- APP STATE ---
 let currentQueue = [];
 let currentIndex = 0;
 let score = 0;
 const totalQuestions = 20;
 
+// Learning State
+let learningState = {
+    items: [],
+    phase: 'memorize', // 'memorize' or 'practice'
+    currentIndex: 0,
+    currentId: null
+};
+
+// Learning Groups Mapping (Slicing the Basic & Daku arrays)
+const learningGroups = {
+    '1.1': basicChars.slice(0, 5),    // a-o
+    '1.2': basicChars.slice(5, 10),   // ka-ko
+    '1.3': basicChars.slice(10, 15),  // sa-so
+    '1.4': basicChars.slice(15, 20),  // ta-to
+    '1.5': basicChars.slice(20, 25),  // na-no
+    '1.6': basicChars.slice(25, 30),  // ha-ho
+    '1.7': basicChars.slice(30, 35),  // ma-mo
+    '1.8': basicChars.slice(35, 38),  // ya-yo
+    '1.9': basicChars.slice(38, 43),  // ra-ro
+    '2.0': basicChars.slice(43, 46),  // wa-wo-n
+    '3.0': dakuChars.slice(0, 5),     // ga-go
+    '3.1': dakuChars.slice(5, 10),    // za-zo
+    '3.2': dakuChars.slice(10, 15),   // da-do
+    '3.3': dakuChars.slice(15, 20),   // ba-bo
+    '3.4': dakuChars.slice(20, 25)    // pa-po
+};
+
+// Ordered list of IDs for "Next Level" feature
+const learningOrder = [
+    '1.1', '1.2', '1.3', '1.4', '1.5', '1.6', '1.7', '1.8', '1.9', '2.0',
+    '3.0', '3.1', '3.2', '3.3', '3.4'
+];
+
 // --- DOM ELEMENTS ---
 const screens = {
     menu: document.getElementById('menu-screen'),
+    learning: document.getElementById('learning-screen'),
     review: document.getElementById('review-screen'),
     quiz: document.getElementById('quiz-screen'),
     result: document.getElementById('result-screen')
 };
 
 const ui = {
-    question: document.getElementById('question-text'),
-    progressText: document.getElementById('progress-text'),
-    progressFill: document.getElementById('progress-fill'),
-    input: document.getElementById('answer-input'),
-    score: document.getElementById('final-score'),
+    // Shared
     modal: document.getElementById('feedback-modal'),
     modalHeader: document.getElementById('modal-header-text'),
     modalHelper: document.getElementById('modal-helper-text'),
     modalAnswer: document.getElementById('modal-correct-answer'),
     modalTrans: document.getElementById('modal-translation'),
+    levelModal: document.getElementById('level-complete-modal'),
+    practiceModal: document.getElementById('practice-modal'),
+
+    // Quiz specific
+    question: document.getElementById('question-text'),
+    progressText: document.getElementById('progress-text'),
+    progressFill: document.getElementById('progress-fill'),
+    input: document.getElementById('answer-input'),
+    score: document.getElementById('final-score'),
+
+    // Learning specific
+    learnTitle: document.getElementById('learning-title'),
+    learnInstr: document.getElementById('learning-instruction'),
+    learnChar: document.getElementById('learning-char'),
+    learnRomaji: document.getElementById('learning-romaji'),
+    learnInput: document.getElementById('learning-input'),
+    learnBtn: document.getElementById('learning-action-btn'),
+
+    // Review specific
     reviewGrid: document.getElementById('review-grid')
 };
 
-// --- FUNCTIONS ---
+// --- GENERAL NAVIGATION ---
+function switchScreen(name) {
+    Object.values(screens).forEach(s => s.classList.remove('active'));
+    screens[name].classList.add('active');
+}
 
-// 1. Show Review Screen (Populates with Separator)
+// --- REVIEW CHART ---
 function showReview() {
     ui.reviewGrid.innerHTML = '';
-
-    // Function to add a header
     const addHeader = (text) => {
         const h = document.createElement('div');
         h.className = 'review-section-header';
         h.innerText = text;
         ui.reviewGrid.appendChild(h);
     };
-
-    // Helper to add cards
     const addCards = (list) => {
         list.forEach(item => {
             const card = document.createElement('div');
@@ -179,46 +221,134 @@ function showReview() {
             ui.reviewGrid.appendChild(card);
         });
     };
-
-    // Render Basic
     addHeader("Basic Hiragana");
     addCards(basicChars);
-
-    // Render Dakuten
     addHeader("Dakuten & Handakuten");
     addCards(dakuChars);
-
     switchScreen('review');
 }
 
-// 2. Start the Quiz
-// Type: 'chars' or 'words'
-// Stage: 1 (Basic) or 2 (Mixed)
+// ==========================================
+//    LEARNING MODE LOGIC
+// ==========================================
+
+function startLearning(id) {
+    learningState.currentId = id;
+    learningState.items = [...learningGroups[id]]; // clone array
+    learningState.phase = 'memorize';
+    learningState.currentIndex = 0;
+
+    // Reset UI
+    ui.learnTitle.innerText = `Lesson ${id}`;
+    ui.learnInstr.innerText = "Memorize the letters";
+    ui.learnInput.style.display = 'none';
+    ui.learnRomaji.style.display = 'block';
+    ui.learnBtn.innerText = "Next";
+
+    switchScreen('learning');
+    renderLearningItem();
+}
+
+function renderLearningItem() {
+    const item = learningState.items[learningState.currentIndex];
+    ui.learnChar.innerText = item.q;
+
+    if (learningState.phase === 'memorize') {
+        ui.learnRomaji.innerText = item.a;
+        ui.learnRomaji.style.display = 'block';
+        ui.learnInput.style.display = 'none';
+        ui.learnBtn.innerText = "Next";
+        ui.learnInstr.innerText = `Memorize this (${learningState.currentIndex + 1}/${learningState.items.length})`;
+    } else {
+        // Practice Phase
+        ui.learnRomaji.style.display = 'none';
+        ui.learnInput.style.display = 'block';
+        ui.learnInput.value = '';
+        ui.learnInput.focus();
+        ui.learnBtn.innerText = "Check";
+        ui.learnInstr.innerText = "What letter is this?";
+    }
+}
+
+function handleLearningAction() {
+    if (learningState.phase === 'memorize') {
+        learningState.currentIndex++;
+        if (learningState.currentIndex >= learningState.items.length) {
+            // End of Memorize Phase -> Show Modal to Start Practice
+            ui.practiceModal.style.display = 'flex';
+        } else {
+            renderLearningItem();
+        }
+    } else {
+        // Practice Phase: Check Answer
+        checkLearningAnswer();
+    }
+}
+
+// Called by the button inside #practice-modal
+function startPracticePhase() {
+    ui.practiceModal.style.display = 'none';
+
+    learningState.phase = 'practice';
+    // Shuffle items for practice
+    learningState.items.sort(() => Math.random() - 0.5);
+    learningState.currentIndex = 0;
+
+    renderLearningItem();
+}
+
+function checkLearningAnswer() {
+    const userAns = ui.learnInput.value.trim().toLowerCase();
+    const item = learningState.items[learningState.currentIndex];
+
+    if (userAns === item.a) {
+        showModal(item, true, true); // (item, isCorrect, isLearningMode)
+    } else {
+        showModal(item, false, true);
+    }
+}
+
+function nextLearningItem() {
+    learningState.currentIndex++;
+    if (learningState.currentIndex >= learningState.items.length) {
+        // End of Lesson
+        ui.levelModal.style.display = 'flex';
+    } else {
+        renderLearningItem();
+    }
+}
+
+function proceedToNextLevel() {
+    ui.levelModal.style.display = 'none';
+    const currentIdx = learningOrder.indexOf(learningState.currentId);
+    if (currentIdx > -1 && currentIdx < learningOrder.length - 1) {
+        const nextId = learningOrder[currentIdx + 1];
+        startLearning(nextId);
+    } else {
+        alert("Congratulations! You have completed all lessons!");
+        switchScreen('menu');
+    }
+}
+
+
+// ==========================================
+//    QUIZ MODE LOGIC (EXISTING)
+// ==========================================
+
 function startQuiz(type, stage) {
     let pool = [];
-
     if (type === 'chars') {
-        if (stage === 1) {
-            pool = [...basicChars];
-        } else {
-            pool = [...basicChars, ...dakuChars];
-        }
-    } else if (type === 'words') {
-        if (stage === 1) {
-            pool = [...basicWords];
-        } else {
-            pool = [...basicWords, ...advancedWords];
-        }
+        pool = (stage === 1) ? [...basicChars] : [...basicChars, ...dakuChars];
+    } else {
+        pool = (stage === 1) ? [...basicWords] : [...basicWords, ...advancedWords];
     }
 
-    // Shuffle (Fisher-Yates)
+    // Shuffle
     for (let i = pool.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [pool[i], pool[j]] = [pool[j], pool[i]];
     }
 
-    // Slice to max questions
-    // Even if pool has 100 items, we only take 20.
     const limit = Math.min(pool.length, totalQuestions);
     currentQueue = pool.slice(0, limit);
     currentIndex = 0;
@@ -228,94 +358,98 @@ function startQuiz(type, stage) {
     renderQuestion();
 }
 
-// 3. Render Current Question
 function renderQuestion() {
     const item = currentQueue[currentIndex];
-
     ui.question.innerText = item.q;
     ui.progressText.innerText = `${currentIndex + 1} / ${currentQueue.length}`;
-
-    const pct = ((currentIndex) / currentQueue.length) * 100;
-    ui.progressFill.style.width = `${pct}%`;
-
+    ui.progressFill.style.width = `${((currentIndex) / currentQueue.length) * 100}%`;
     ui.input.value = '';
     ui.input.focus();
 }
 
-// 4. Check Answer
 function checkAnswer() {
     const userAns = ui.input.value.trim().toLowerCase();
     const correctAns = currentQueue[currentIndex].a.toLowerCase();
-    const currentItem = currentQueue[currentIndex];
+    const item = currentQueue[currentIndex];
 
     if (userAns === correctAns) {
         score++;
-        showModal(currentItem, true); // True = Correct
+        showModal(item, true, false);
     } else {
-        showModal(currentItem, false); // False = Incorrect
+        showModal(item, false, false);
     }
 }
 
-// 5. Show Feedback Modal (Used for both correct and incorrect)
-function showModal(item, isCorrect) {
-    ui.modalAnswer.innerText = item.a;
-
-    // Translation logic
-    if (item.t) {
-        ui.modalTrans.innerText = `(${item.t})`;
-        ui.modalTrans.style.display = 'block';
+function nextQuestion() {
+    currentIndex++;
+    if (currentIndex < currentQueue.length) {
+        renderQuestion();
     } else {
-        ui.modalTrans.style.display = 'none';
+        ui.score.innerText = `${score} / ${currentQueue.length}`;
+        switchScreen('result');
     }
+}
 
-    // UI Updates based on Correct/Incorrect
+// ==========================================
+//    SHARED MODAL LOGIC
+// ==========================================
+
+// isLearningMode: Boolean flag to determine which "Next" function to call
+let isLearningCtx = false;
+
+function showModal(item, isCorrect, isLearning) {
+    isLearningCtx = isLearning;
+
+    ui.modalAnswer.innerText = item.a;
+    ui.modalTrans.innerText = item.t ? `(${item.t})` : '';
+    ui.modalTrans.style.display = item.t ? 'block' : 'none';
+
     if (isCorrect) {
         ui.modalHeader.innerText = "Correct!";
-        ui.modalHeader.style.color = "var(--correct-color)"; // Green
+        ui.modalHeader.style.color = "var(--correct-color)";
         ui.modalHelper.innerText = "You got it:";
     } else {
         ui.modalHeader.innerText = "Incorrect";
-        ui.modalHeader.style.color = "var(--error-color)"; // Red
+        ui.modalHeader.style.color = "var(--error-color)";
         ui.modalHelper.innerText = "The correct answer is:";
     }
 
     ui.modal.style.display = 'flex';
 }
 
-// 6. Close Modal
 function closeModal() {
     ui.modal.style.display = 'none';
-    nextQuestion();
-}
-
-// 7. Next Question or End
-function nextQuestion() {
-    currentIndex++;
-    if (currentIndex < currentQueue.length) {
-        renderQuestion();
+    if (isLearningCtx) {
+        nextLearningItem();
     } else {
-        endQuiz();
+        nextQuestion();
     }
 }
 
-// 8. End Quiz
-function endQuiz() {
-    ui.score.innerText = `${score} / ${currentQueue.length}`;
-    switchScreen('result');
-}
-
-// Helper: Switch Screens
-function switchScreen(name) {
-    Object.values(screens).forEach(s => s.classList.remove('active'));
-    screens[name].classList.add('active');
-}
-
-// Event Listener: Enter key
-ui.input.addEventListener("keypress", function (event) {
+// Global Event Listeners
+document.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
+        // If feedback modal is open
         if (ui.modal.style.display === 'flex') {
             closeModal();
-        } else {
+            return;
+        }
+
+        // If level complete modal is open
+        if (ui.levelModal.style.display === 'flex') {
+            return; // Let user click buttons
+        }
+
+        // If practice start modal is open
+        if (ui.practiceModal.style.display === 'flex') {
+            startPracticePhase();
+            return;
+        }
+
+        // Logic depending on active screen
+        if (screens.learning.classList.contains('active')) {
+            handleLearningAction();
+        } else if (screens.quiz.classList.contains('active')) {
             checkAnswer();
         }
     }

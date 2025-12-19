@@ -27,6 +27,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    /* Allows scrolling from top */
     min-height: 100vh;
     padding: 40px 20px;
 }
@@ -97,12 +98,50 @@ p {
 .section-label {
     text-align: left;
     color: var(--text-secondary);
-    font-size: 0.9rem;
-    font-weight: 500;
-    margin-top: 10px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-top: 15px;
     margin-bottom: 5px;
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+
+/* Learning List Scroll Container */
+.learning-list-container {
+    max-height: 220px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.learning-list-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.learning-list-container::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+.learning-btn {
+    text-align: left;
+    padding: 12px 15px;
+    font-size: 0.95rem;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.learning-btn:hover {
+    border-color: var(--accent-color);
+    background-color: var(--surface-hover);
 }
 
 .btn-row {
@@ -200,6 +239,14 @@ p {
     font-size: 0.9rem;
     color: var(--accent-color);
     margin-top: 5px;
+}
+
+/* Learning Screen Specifics */
+.learning-romaji {
+    font-size: 2rem;
+    color: var(--accent-color);
+    margin-top: 10px;
+    font-weight: 500;
 }
 
 /* Quiz Interface */
