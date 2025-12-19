@@ -1,5 +1,4 @@
 :root {
-    /* Gemini / Material Design Dark Theme */
     --bg-color: #131314;
     --surface-color: #1E1F20;
     --surface-hover: #2D2E30;
@@ -24,28 +23,23 @@ body {
     font-family: 'Roboto', sans-serif;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     min-height: 100vh;
-    padding: 20px;
+    padding: 40px 20px;
 }
 
 .app-container {
     width: 100%;
     max-width: 500px;
     text-align: center;
-    max-height: 95vh;
     display: flex;
     flex-direction: column;
 }
 
-.header-icon svg {
-    width: 48px;
-    height: 48px;
-    margin-bottom: 20px;
-}
-
 .dj-hiragana-logo {
-    width: 100%;
+    max-width: 100%;
+    width: 300px;
+    height: auto;
     margin-bottom: 30px;
 }
 
@@ -67,6 +61,7 @@ p {
     display: none;
     animation: fadeIn 0.3s ease-out;
     width: 100%;
+    padding-bottom: 50px;
 }
 
 .screen.active {
@@ -92,19 +87,8 @@ p {
     gap: 12px;
 }
 
-.menu-scroll-container {
-    max-height: 60vh;
-    overflow-y: auto;
-    padding-right: 5px;
-}
-
-.menu-scroll-container::-webkit-scrollbar {
-    width: 4px;
-}
-
-.menu-scroll-container::-webkit-scrollbar-thumb {
-    background: var(--border-color);
-    border-radius: 4px;
+.menu-content {
+    width: 100%;
 }
 
 .section-label {
@@ -175,23 +159,11 @@ p {
     grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
     gap: 10px;
     margin: 20px 0;
-    max-height: 50vh;
-    overflow-y: auto;
-    padding-right: 5px;
-}
-
-.review-grid::-webkit-scrollbar {
-    width: 6px;
-}
-
-.review-grid::-webkit-scrollbar-thumb {
-    background-color: var(--border-color);
-    border-radius: 4px;
+    width: 100%;
 }
 
 .review-section-header {
     grid-column: 1 / -1;
-    /* Span full width */
     text-align: left;
     color: var(--accent-color);
     margin-top: 20px;
