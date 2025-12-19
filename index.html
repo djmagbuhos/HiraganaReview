@@ -12,33 +12,51 @@
     <div class="app-container">
         
         <div class="header-icon">
-
+            <img src="img/dj-hira-logo.png" class="dj-hiragana-logo" alt="dj-hiragana-logo">
         </div>
 
         <div id="menu-screen" class="screen active">
             <h1>Hiragana Review</h1>
-            <p>Select a mode to begin.</p>
             
-            <div class="menu-options">
-                <button class="menu-btn review-mode-btn" onclick="showReview()">
-                    <span class="btn-title">View Hiragana Chart</span>
-                    <span class="btn-desc">Review all characters and sounds</span>
-                </button>
+            
+            <div class="menu-scroll-container">
+                <div class="menu-options">
+                    
+                    <button class="menu-btn review-mode-btn" onclick="showReview()">
+                        <span class="btn-title">View Hiragana Chart</span>
+                        <span class="btn-desc">Review all characters (Basic & Dakuten)</span>
+                    </button>
 
-                <div class="divider"></div>
+                    <div class="divider"></div>
+                    <p>Select a test mode.</p>
+                    <div class="section-label">Character Test</div>
 
-                <button class="menu-btn" onclick="startQuiz('chars')">
-                    <span class="btn-title">Test: Characters Only</span>
-                    <span class="btn-desc">Identify single letters (ka, ki, ku...)</span>
-                </button>
-                <button class="menu-btn" onclick="startQuiz('words')">
-                    <span class="btn-title">Test: Words Only</span>
-                    <span class="btn-desc">Identify full words (neko, sushi...)</span>
-                </button>
-                <button class="menu-btn" onclick="startQuiz('mixed')">
-                    <span class="btn-title">Test: Mixed Mode</span>
-                    <span class="btn-desc">A random mix of both sets</span>
-                </button>
+                    <div class="btn-row">
+                        <button class="menu-btn half" onclick="startQuiz('chars', 1)">
+                            <span class="btn-title">Stage 1</span>
+                            <span class="btn-desc">Basic Only</span>
+                        </button>
+                        <button class="menu-btn half" onclick="startQuiz('chars', 2)">
+                            <span class="btn-title">Stage 2</span>
+                            <span class="btn-desc">With Dakuten</span>
+                        </button>
+                    </div>
+
+                    <div class="divider"></div>
+                    <div class="section-label">Word Test (20 items)</div>
+
+                    <div class="btn-row">
+                        <button class="menu-btn half" onclick="startQuiz('words', 1)">
+                            <span class="btn-title">Stage 1</span>
+                            <span class="btn-desc">Basic Words</span>
+                        </button>
+                        <button class="menu-btn half" onclick="startQuiz('words', 2)">
+                            <span class="btn-title">Stage 2</span>
+                            <span class="btn-desc">Advanced</span>
+                        </button>
+                    </div>
+
+                </div>
             </div>
         </div>
 

@@ -6,7 +6,6 @@
     --text-primary: #E3E3E3;
     --text-secondary: #C4C7C5;
     --accent-color: #8AB4F8;
-    /* Gemini Blue */
     --accent-hover: #A8C7FA;
     --error-color: #F2B8B5;
     --input-bg: #282A2C;
@@ -45,6 +44,11 @@ body {
     margin-bottom: 20px;
 }
 
+.dj-hiragana-logo {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
 /* Typography */
 h1 {
     font-weight: 400;
@@ -81,11 +85,42 @@ p {
     }
 }
 
-/* Menu Buttons */
+/* Menu Layout */
 .menu-options {
     display: flex;
     flex-direction: column;
     gap: 12px;
+}
+
+.menu-scroll-container {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.menu-scroll-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.menu-scroll-container::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+.section-label {
+    text-align: left;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-row {
+    display: flex;
+    gap: 10px;
 }
 
 .menu-btn {
@@ -99,6 +134,11 @@ p {
     color: var(--text-primary);
     display: flex;
     flex-direction: column;
+    justify-content: center;
+}
+
+.menu-btn.half {
+    width: 50%;
 }
 
 .menu-btn:hover {
@@ -114,35 +154,32 @@ p {
 .divider {
     height: 1px;
     background-color: var(--border-color);
-    margin: 5px 0;
+    margin: 10px 0;
 }
 
 .btn-title {
     font-size: 1rem;
     font-weight: 500;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
     color: var(--accent-color);
 }
 
 .btn-desc {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--text-secondary);
 }
 
-/* Review Grid (New) */
+/* Review Grid */
 .review-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
     gap: 10px;
     margin: 20px 0;
     max-height: 50vh;
-    /* Make it scrollable vertically */
     overflow-y: auto;
     padding-right: 5px;
-    /* Space for scrollbar */
 }
 
-/* Custom Scrollbar */
 .review-grid::-webkit-scrollbar {
     width: 6px;
 }
@@ -150,6 +187,18 @@ p {
 .review-grid::-webkit-scrollbar-thumb {
     background-color: var(--border-color);
     border-radius: 4px;
+}
+
+.review-section-header {
+    grid-column: 1 / -1;
+    /* Span full width */
+    text-align: left;
+    color: var(--accent-color);
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+    font-size: 1rem;
 }
 
 .review-card {
@@ -177,7 +226,6 @@ p {
     color: var(--accent-color);
     margin-top: 5px;
 }
-
 
 /* Quiz Interface */
 .question-card {
