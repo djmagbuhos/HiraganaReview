@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hiragana Review</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <div class="header-icon">
+
+        </div>
+
+        <div id="menu-screen" class="screen active">
+            <h1>Hiragana Review</h1>
+            <p>Select a mode to begin.</p>
+            
+            <div class="menu-options">
+                <button class="menu-btn review-mode-btn" onclick="showReview()">
+                    <span class="btn-title">View Hiragana Chart</span>
+                    <span class="btn-desc">Review all characters and sounds</span>
+                </button>
+
+                <div class="divider"></div>
+
+                <button class="menu-btn" onclick="startQuiz('chars')">
+                    <span class="btn-title">Test: Characters Only</span>
+                    <span class="btn-desc">Identify single letters (ka, ki, ku...)</span>
+                </button>
+                <button class="menu-btn" onclick="startQuiz('words')">
+                    <span class="btn-title">Test: Words Only</span>
+                    <span class="btn-desc">Identify full words (neko, sushi...)</span>
+                </button>
+                <button class="menu-btn" onclick="startQuiz('mixed')">
+                    <span class="btn-title">Test: Mixed Mode</span>
+                    <span class="btn-desc">A random mix of both sets</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="review-screen" class="screen">
+            <h1>Hiragana Chart</h1>
+            <p>Scroll to view all</p>
+            
+            <div id="review-grid" class="review-grid">
+                </div>
+
+            <button class="action-btn secondary" onclick="switchScreen('menu')">Back to Menu</button>
+        </div>
+
+        <div id="quiz-screen" class="screen">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text" id="progress-text">1 / 20</div>
+            
+            <div class="question-card">
+                <div class="question-display" id="question-text">あ</div>
+            </div>
+            
+            <input type="text" id="answer-input" placeholder="Type Romaji here..." autocomplete="off">
+            <button class="action-btn" onclick="checkAnswer()">Submit</button>
+            <button class="text-btn" onclick="switchScreen('menu')">Quit</button>
+        </div>
+
+        <div id="result-screen" class="screen">
+            <h1>Session Complete</h1>
+            <p>Here is your final score:</p>
+            <div class="score-display" id="final-score">0 / 20</div>
+            <button class="action-btn" onclick="location.reload()">Back to Menu</button>
+        </div>
+
+    </div>
+
+    <div id="feedback-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">Incorrect</div>
+            <div class="modal-body">
+                <p>The correct answer is:</p>
+                <h2 id="modal-correct-answer">ka</h2>
+                <p id="modal-translation" class="translation-text"></p>
+            </div>
+            <button class="action-btn secondary" onclick="closeModal()">Next Question</button>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
