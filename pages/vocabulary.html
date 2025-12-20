@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japanese Vocabulary Review</title>
+    <link rel="stylesheet" href="../css/styles-vocab.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="app-container">
+
+        <div class="header-icon">
+            <img src="../img/dj-vocab-log.png" class="dj-vocab-logo" alt="Japanese Vocabulary by DJ Magbuhos">
+        </div>
+
+        <div id="menu-screen" class="screen active">
+            <div class="menu-content">
+                <h1>Vocabulary Builder</h1>
+                <p>Master 250 essential Japanese words.</p>
+
+                <div class="menu-options">
+                    
+                    <button class="menu-btn review-mode-btn" onclick="showReview(1)">
+                        <span class="btn-title">Review Vocabulary List</span>
+                        <span class="btn-desc">View words with Romaji & English (50 per page)</span>
+                    </button>
+
+                    <div class="divider"></div>
+                    <div class="section-label">Take a Test (50 Items)</div>
+
+                    <button class="menu-btn" onclick="startTest('multiple')">
+                        <span class="btn-title">Test 1: Multiple Choice</span>
+                        <span class="btn-desc">Choose the correct English meaning</span>
+                    </button>
+
+                    <button class="menu-btn" onclick="startTest('typing')">
+                        <span class="btn-title">Test 2: Identification</span>
+                        <span class="btn-desc">Type the English meaning</span>
+                    </button>
+
+                </div>
+
+                <div class="app-footer">
+                    <div class="divider"></div>
+                    <a href="../index.html" class="footer-link">
+                        <span class="link-icon">あ</span> Go to Hiragana App
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="review-screen" class="screen">
+            <h1>Vocabulary List</h1>
+            <p id="review-page-indicator">Page 1 of 5</p>
+            
+            <div id="review-list" class="review-list">
+                </div>
+
+            <div class="pagination-controls">
+                <button class="action-btn small" id="prev-page-btn" onclick="changeReviewPage(-1)">Previous</button>
+                <button class="action-btn small" id="next-page-btn" onclick="changeReviewPage(1)">Next</button>
+            </div>
+
+            <button class="text-btn" onclick="switchScreen('menu')">Back to Menu</button>
+        </div>
+
+        <div id="test-screen" class="screen">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text" id="progress-text">1 / 50</div>
+            
+            <div class="question-card">
+                <div class="label-small">What is the meaning of:</div>
+                <div class="question-display" id="question-text">Watashi</div>
+            </div>
+            
+            <div id="choices-container" class="choices-grid">
+                </div>
+
+            <div id="typing-container" style="display: none;">
+                <input type="text" id="answer-input" placeholder="Type English meaning..." autocomplete="off">
+                <button class="action-btn" onclick="checkTypingAnswer()">Submit Answer</button>
+            </div>
+
+            <button class="text-btn" onclick="switchScreen('menu')">Quit Test</button>
+        </div>
+
+        <div id="result-screen" class="screen">
+            <h1>Test Complete</h1>
+            <p>Here is your final score:</p>
+            <div class="score-display" id="final-score">0 / 50</div>
+            <button class="action-btn" onclick="location.reload()">Back to Menu</button>
+        </div>
+
+    </div>
+
+    <div id="feedback-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header" id="modal-header-text">Incorrect</div>
+            <div class="modal-body">
+                <h3 id="modal-word-display" style="color: #C4C7C5; margin-bottom: 5px;">Watashi</h3>
+                <p id="modal-helper-text">The correct answer is:</p>
+                <h2 id="modal-correct-answer">I / Me</h2>
+            </div>
+            <button class="action-btn secondary" onclick="closeModal()">Next Question</button>
+            <button class="text-btn small" onclick="switchScreen('menu'); document.getElementById('feedback-modal').style.display='none';">Quit to Menu</button>
+        </div>
+    </div>
+
+    <script src="../js/script-vocab.js"></script>
+</body>
+</html>
