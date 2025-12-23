@@ -134,6 +134,7 @@ let learningState = {
     currentIndex: 0,
     currentId: null
 };
+let learningScore = 0;
 
 // Learning Groups Mapping (Slicing the Basic & Daku arrays)
 const learningGroups = {
@@ -178,6 +179,7 @@ const ui = {
     modalTrans: document.getElementById('modal-translation'),
     levelModal: document.getElementById('level-complete-modal'),
     practiceModal: document.getElementById('practice-modal'),
+    learnScoreDisplay: document.getElementById('learning-score-display'),
 
     // Quiz specific
     question: document.getElementById('question-text'),
@@ -234,9 +236,11 @@ function showReview() {
 
 function startLearning(id) {
     learningState.currentId = id;
-    learningState.items = [...learningGroups[id]]; // clone array
+    // For Memorize phase: ONLY show the items specific to this lesson
+    learningState.items = [...learningGroups[id]];
     learningState.phase = 'memorize';
     learningState.currentIndex = 0;
+    learningScore = 0; // Reset learning score
 
     // Reset UI
     ui.learnTitle.innerText = `Lesson ${id}`;
@@ -266,7 +270,7 @@ function renderLearningItem() {
         ui.learnInput.value = '';
         ui.learnInput.focus();
         ui.learnBtn.innerText = "Check";
-        ui.learnInstr.innerText = "What letter is this?";
+        ui.learnInstr.innerText = `Question ${learningState.currentIndex + 1}/${learningState.items.length}`;
     }
 }
 
@@ -288,11 +292,28 @@ function handleLearningAction() {
 // Called by the button inside #practice-modal
 function startPracticePhase() {
     ui.practiceModal.style.display = 'none';
-
     learningState.phase = 'practice';
-    // Shuffle items for practice
+
+    // *** CUMULATIVE LOGIC ***
+    // Find index of current lesson in the ordered list
+    const currentIdx = learningOrder.indexOf(learningState.currentId);
+    let practicePool = [];
+
+    // Combine all groups from lesson 0 up to current lesson
+    for (let i = 0; i <= currentIdx; i++) {
+        const id = learningOrder[i];
+        if (learningGroups[id]) {
+            practicePool = practicePool.concat(learningGroups[id]);
+        }
+    }
+
+    // Set state items to the cumulative pool
+    learningState.items = practicePool;
+
+    // Shuffle
     learningState.items.sort(() => Math.random() - 0.5);
     learningState.currentIndex = 0;
+    learningScore = 0;
 
     renderLearningItem();
 }
@@ -302,6 +323,7 @@ function checkLearningAnswer() {
     const item = learningState.items[learningState.currentIndex];
 
     if (userAns === item.a) {
+        learningScore++;
         showModal(item, true, true); // (item, isCorrect, isLearningMode)
     } else {
         showModal(item, false, true);
@@ -312,10 +334,16 @@ function nextLearningItem() {
     learningState.currentIndex++;
     if (learningState.currentIndex >= learningState.items.length) {
         // End of Lesson
+        ui.learnScoreDisplay.innerText = `${learningScore} / ${learningState.items.length}`;
         ui.levelModal.style.display = 'flex';
     } else {
         renderLearningItem();
     }
+}
+
+function retryCurrentLevel() {
+    ui.levelModal.style.display = 'none';
+    startLearning(learningState.currentId);
 }
 
 function proceedToNextLevel() {

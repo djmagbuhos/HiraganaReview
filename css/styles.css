@@ -9,7 +9,6 @@
     --accent-hover: #A8C7FA;
     --error-color: #F2B8B5;
     --correct-color: #81C995;
-    /* Green for correct answers */
     --input-bg: #282A2C;
     --border-color: #444746;
 }
@@ -27,7 +26,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    /* Allows scrolling from top */
     min-height: 100vh;
     padding: 40px 20px;
 }
@@ -42,7 +40,7 @@ body {
 
 .dj-hiragana-logo {
     max-width: 100%;
-    /* width: 300px; */
+    width: 300px;
     height: auto;
     margin-bottom: 30px;
 }
@@ -106,7 +104,7 @@ p {
     letter-spacing: 1px;
 }
 
-/* Learning List Scroll Container */
+/* Learning List */
 .learning-list-container {
     max-height: 220px;
     overflow-y: auto;
@@ -347,6 +345,14 @@ input[type="text"]:focus {
     margin: 30px 0;
 }
 
+/* NEW: Small Score Display for Learning Modal */
+.score-display-small {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    font-weight: bold;
+    margin: 15px 0;
+}
+
 /* Modal */
 .modal-overlay {
     position: fixed;
@@ -392,7 +398,7 @@ input[type="text"]:focus {
     margin-bottom: 25px;
 }
 
-/* --- FOOTER LINK STYLES (NEW) --- */
+/* Footer Link */
 .app-footer {
     margin-top: 30px;
 }

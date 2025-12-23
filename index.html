@@ -78,7 +78,7 @@
 
                 <div class="app-footer">
                     <div class="divider"></div>
-                    <a href="pages/vocabulary.html" class="footer-link">
+                    <a href="../vocabulary/index.html" class="footer-link">
                         <span class="link-icon">語</span> Go to Japanese Vocabulary App
                     </a>
                 </div>
@@ -150,11 +150,13 @@
         <div class="modal-content">
             <div class="modal-header" style="color: var(--correct-color);">Lesson Complete!</div>
             <div class="modal-body">
-                <p>Good job! You finished this part.</p>
-                <p>Do you want to proceed to the next lesson?</p>
+                <p>You finished this part.</p>
+                <div id="learning-score-display" class="score-display-small">0 / 0</div>
+                <p>What would you like to do?</p>
             </div>
-            <button class="action-btn" onclick="proceedToNextLevel()">Yes, Next Lesson</button>
-            <button class="action-btn secondary" onclick="location.reload()">No, Back to Menu</button>
+            <button class="action-btn" onclick="proceedToNextLevel()">Next Lesson</button>
+            <button class="action-btn secondary" onclick="retryCurrentLevel()">Retry Lesson</button>
+            <button class="text-btn" onclick="location.reload()">Back to Menu</button>
         </div>
     </div>
 
