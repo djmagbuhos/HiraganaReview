@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japanese Grammar Review - 1</title>
+    <link rel="stylesheet" href="../css/styles-reviewer1.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="app-container">
+
+        <div class="header-icon">
+            <img src="../img/jgrammar-review.png" class="app-logo" alt="Grammar Review">
+        </div>
+
+        <div id="menu-screen" class="screen active">
+            <div class="menu-content">
+                <h1>Grammar Review</h1>
+                <p>Select a chapter to test your grammar and particle skills.</p>
+
+                <div class="menu-options">
+                    
+                    <div class="section-label">Select Chapter (10 Questions)</div>
+
+                    <button class="menu-btn" onclick="startQuiz('ch1')">
+                        <span class="btn-title">Chapter 1</span>
+                        <span class="btn-desc">Basic Sentence Structure (Wa, Desu, Ka, No, Mo)</span>
+                    </button>
+
+                    <button class="menu-btn" onclick="startQuiz('ch2')">
+                        <span class="btn-title">Chapter 2</span>
+                        <span class="btn-desc">Location & Existence (Arimasu, Imasu, Ni, Ga)</span>
+                    </button>
+
+                    <button class="menu-btn" onclick="startQuiz('ch3')">
+                        <span class="btn-title">Chapter 3</span>
+                        <span class="btn-desc">Numbers & Counters (Ikura, Nanban)</span>
+                    </button>
+
+                    <button class="menu-btn" onclick="startQuiz('ch4')">
+                        <span class="btn-title">Chapter 4</span>
+                        <span class="btn-desc">Time Expressions (Kara, Made, Itsu)</span>
+                    </button>
+
+                    <button class="menu-btn" onclick="startQuiz('ch5')">
+                        <span class="btn-title">Chapter 5</span>
+                        <span class="btn-desc">Transport & Frequency (De, Ni, Gurai)</span>
+                    </button>
+
+                    <div class="divider"></div>
+
+                    <button class="menu-btn special-btn" onclick="startQuiz('all')">
+                        <span class="btn-title">Comprehensive Test (20 Questions)</span>
+                        <span class="btn-desc">Random mix of all chapters</span>
+                    </button>
+
+                </div>
+                
+                <div class="app-footer">
+                    <div class="divider"></div>
+                    <a href="index.html" class="footer-link"> 
+                        <span class="link-icon">🏠</span> Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="quiz-screen" class="screen">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text" id="progress-text">1 / 10</div>
+            
+            <div class="question-card">
+                <div class="label-small">Fill in the blank:</div>
+                <div class="question-display" id="question-text"></div>
+            </div>
+            
+            <div id="choices-container" class="choices-grid"></div>
+
+            <button class="text-btn" onclick="switchScreen('menu')">Quit Test</button>
+        </div>
+
+        <div id="result-screen" class="screen">
+            <h1>Test Complete</h1>
+            <p>Your grammar score:</p>
+            <div class="score-display" id="final-score">8 / 10</div>
+            <button class="action-btn" onclick="location.reload()">Back to Menu</button>
+        </div>
+
+    </div>
+
+    <div id="feedback-modal" class="modal-overlay">
+        <div class="modal-content large-modal">
+            <div class="modal-header" id="modal-header-text">Incorrect</div>
+            
+            <div class="modal-body">
+                <h2 id="modal-correct-answer" style="margin-bottom: 20px;"></h2>
+                <div class="explanation-container">
+                    <div class="expl-label">Explanations:</div>
+                    <div id="explanation-list"></div>
+                </div>
+            </div>
+
+            <button class="action-btn secondary" onclick="closeModal()">Next Question</button>
+            <button class="text-btn small" onclick="switchScreen('menu'); document.getElementById('feedback-modal').style.display='none';">Quit to Menu</button>
+        </div>
+    </div>
+
+    <script src="../js/script-reviewer1.js"></script>
+</body>
+</html>
