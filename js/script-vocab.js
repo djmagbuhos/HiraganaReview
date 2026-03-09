@@ -2,317 +2,388 @@
 // r: Romaji
 // e: English Meaning
 
+// --- DATABASE ---
 const vocabData = [
     // --- PEOPLE & PRONOUNS ---
-    { r: 'WATASHI', e: 'I' },
-    { r: 'ANATA', e: 'You' },
-    { r: 'KAISHAIN', e: 'Company Employee' },
-    { r: 'SHAIN', e: 'Employee' },
-    { r: 'SHACHOU', e: 'Company President' },
-    { r: 'BUCHOU', e: 'Department Head' },
-    { r: 'KACHOU', e: 'Section Head / Supervisor' },
-    { r: 'OTOKO', e: 'Male' },
-    { r: 'ONNA', e: 'Female' },
-    { r: 'SENSEI', e: 'Teacher' },
-    { r: 'GAKUSEI', e: 'Student' },
-    { r: 'NIHONJIN', e: 'Japanese Person' },
-    { r: 'AMERIKAJIN', e: 'American Person' },
-    { r: 'FIRIPINJIN', e: 'Filipino Person' },
-    { r: 'GAIKOKUJIN', e: 'Foreigner' },
-    { r: 'MINNA / MINASAN', e: 'Everyone' },
-    { r: 'TOMODACHI', e: 'Friend' },
-    { r: 'HITO', e: 'Person (Informal)' },
-    { r: 'KATA', e: 'Person (Formal)' },
-    { r: 'KAZOKU', e: 'Family' },
-    { r: 'RYOUSHIN', e: 'Parents' },
-    { r: 'KODOMO / KO', e: 'Children / Child' },
-    { r: 'KYOUDAI', e: 'Siblings' },
-    { r: 'ENJINIA', e: 'Engineer' },
-    { r: 'KENSHUUSEI', e: 'Trainee' },
-    { r: '~SAN', e: 'Mr./Miss/Mrs. (Honorific)' },
-    { r: '~SENSEI', e: 'Teacher/Doctor (Honorific)' },
-    { r: '(O) NAMAE', e: 'Name' },
-    { r: 'RYUUGAKUSEI', e: 'Student studying abroad' },
-    { r: 'SEITO', e: 'Student' },
-    { r: 'KURASUMEITO', e: 'Classmate' },
-    { r: 'MENBA-', e: 'Member' },
+    { r: 'Watashi', e: 'I / Me' },
+    { r: 'Anata', e: 'You' },
+    { r: 'Kaishain', e: 'Company Employee' },
+    { r: 'Shain', e: 'Employee' },
+    { r: 'Shachou', e: 'Company President' },
+    { r: 'Buchou', e: 'Department Head' },
+    { r: 'Kachou', e: 'Section Head / Supervisor' },
+    { r: 'Otoko', e: 'Male / Man' },
+    { r: 'Onna', e: 'Female / Woman' },
+    { r: 'Sensei', e: 'Teacher' },
+    { r: 'Gakusei', e: 'Student' },
+    { r: 'Nihonjin', e: 'Japanese Person' },
+    { r: 'Amerikajin', e: 'American Person' },
+    { r: 'Firipinjin', e: 'Filipino Person' },
+    { r: 'Gaikokujin', e: 'Foreigner' },
+    { r: 'Minna', e: 'Everyone' },
+    { r: 'Minasan', e: 'Everyone (Polite)' },
+    { r: 'Tomodachi', e: 'Friend' },
+    { r: 'Hito', e: 'Person' },
+    { r: 'Kata', e: 'Person (Formal)' },
+    { r: 'Kazoku', e: 'Family' },
+    { r: 'Ryoushin', e: 'Parents' },
+    { r: 'Kodomo', e: 'Children' },
+    { r: 'Ko', e: 'Child' },
+    { r: 'Kyoudai', e: 'Siblings' },
+    { r: 'Enjinia', e: 'Engineer' },
+    { r: 'Kenshuusei', e: 'Trainee' },
+    { r: 'San', e: 'Mr. / Miss / Mrs.' },
+    { r: 'Namae', e: 'Name' },
+    { r: 'Ryuugakusei', e: 'Student studying abroad' },
+    { r: 'Seito', e: 'Student' },
+    { r: 'Kurasumeito', e: 'Classmate' },
+    { r: 'Menbaa', e: 'Member' },
+    { r: 'Shinnyuushain', e: 'New Employee' },
+    { r: 'Isha', e: 'Doctor' },
 
     // --- PLACES ---
-    { r: 'KAISHA', e: 'Company' },
-    { r: 'OFISU', e: 'Office' },
-    { r: 'GAKKOU', e: 'School' },
-    { r: 'DAIGAKU', e: 'University' },
-    { r: 'UCHI / IE', e: 'House / Home' },
-    { r: 'HEYA', e: 'Room' },
-    { r: 'CHUUSHAJOU', e: 'Parking Lot' },
-    { r: 'OTEARAI', e: 'Washroom' },
-    { r: 'TOIRE', e: 'Toilet' },
-    { r: 'DAIDOKORO', e: 'Kitchen' },
-    { r: 'KUNI', e: 'Country' },
-    { r: 'BYOUIN', e: 'Hospital' },
-    { r: 'KOUJOU', e: 'Factory' },
-    { r: 'GINKOU', e: 'Bank' },
-    { r: 'TAISHIKAN', e: 'Embassy' },
-    { r: 'TOSHOKAN', e: 'Library' },
-    { r: 'MO-RU', e: 'Mall' },
-    { r: 'EIGAKAN', e: 'Movie House' },
-    { r: 'KISSATEN / KAFE', e: 'Coffee Shop / Café' },
-    { r: 'HONYA', e: 'Bookstore' },
-    { r: 'RESUTORAN', e: 'Restaurant' },
-    { r: 'DEPA-TO', e: 'Department Store' },
-    { r: 'SU-PA-', e: 'Supermarket' },
-    { r: 'BIRU', e: 'Building' },
-    { r: 'TATEMONO', e: 'Building' },
-    { r: 'KAIGISHITSU', e: 'Conference Room' },
-    { r: 'KYOUSHITSU', e: 'Classroom' },
-    { r: 'RYOU', e: 'Dormitory' },
-    { r: 'APA-TO', e: 'Apartment' },
-    { r: 'EKI', e: 'Train Station' },
-    { r: 'TOKORO / BASHO', e: 'Place' },
-    { r: 'KOUEN', e: 'Park' },
-    { r: 'MICHI', e: 'Road' },
-    { r: 'KUUKOU', e: 'Airport' },
-    { r: 'MINATO', e: 'Harbor / Seaport' },
-    { r: '(O)MISE', e: 'Store / Shop' },
-    { r: 'KUSURIYA', e: 'Drugstore / Pharmacy' },
-    { r: 'MACHI', e: 'Town' },
-    { r: 'MURA', e: 'Village' },
-    { r: 'INAKA', e: 'Province / Rural Area' },
-    { r: 'OTERA', e: 'Temple' },
-    { r: 'NIWA', e: 'Garden' },
-    { r: 'BIJUTSUKAN', e: 'Museum' },
-    { r: 'RIZO-TO', e: 'Resort' },
-    { r: 'ONSEN', e: 'Hot Spring' },
-    { r: 'RYOKAN', e: 'Japanese Style Inn' },
-    { r: 'GAIKOKU', e: 'Foreign Country' },
-    { r: 'KAIGAI', e: 'Overseas' },
-    { r: 'IGIRISU', e: 'United Kingdom' },
-    { r: 'FURANSU', e: 'France' },
-    { r: 'SUPEIN', e: 'Spain' },
-    { r: 'INDO', e: 'India' },
-    { r: 'SHINGAPO-RU', e: 'Singapore' },
-    { r: 'MARE-SHIA', e: 'Malaysia' },
-    { r: 'INDONESHIA', e: 'Indonesia' },
-    { r: 'TAI', e: 'Thailand' },
+    { r: 'Kaisha', e: 'Company' },
+    { r: 'Ofisu', e: 'Office' },
+    { r: 'Gakkou', e: 'School' },
+    { r: 'Daigaku', e: 'University' },
+    { r: 'Uchi', e: 'Home' },
+    { r: 'Ie', e: 'House' },
+    { r: 'Heya', e: 'Room' },
+    { r: 'Chuushajou', e: 'Parking Lot' },
+    { r: 'Otearai', e: 'Washroom / Toilet' },
+    { r: 'Kuni', e: 'Country' },
+    { r: 'Byouin', e: 'Hospital' },
+    { r: 'Koujou', e: 'Factory' },
+    { r: 'Ginkou', e: 'Bank' },
+    { r: 'Taishikan', e: 'Embassy' },
+    { r: 'Toshokan', e: 'Library' },
+    { r: 'Mooru', e: 'Mall' },
+    { r: 'Eigakan', e: 'Movie Theater' },
+    { r: 'Kissaten', e: 'Coffee Shop / Cafe' },
+    { r: 'Kafe', e: 'Cafe' },
+    { r: 'Honya', e: 'Bookstore' },
+    { r: 'Resutoran', e: 'Restaurant' },
+    { r: 'Depaato', e: 'Department Store' },
+    { r: 'Suupaa', e: 'Supermarket' },
+    { r: 'Biru', e: 'Building' },
+    { r: 'Kaigishitsu', e: 'Conference Room' },
+    { r: 'Kyoushitsu', e: 'Classroom' },
+    { r: 'Ryou', e: 'Dormitory' },
+    { r: 'Apaato', e: 'Apartment' },
+    { r: 'Eki', e: 'Train Station' },
+    { r: 'Tokoro', e: 'Place' },
+    { r: 'Basho', e: 'Place' },
+    { r: 'Tatemono', e: 'Building' },
+    { r: 'Kouen', e: 'Park' },
+    { r: 'Michi', e: 'Road' },
+    { r: 'Kuukou', e: 'Airport' },
+    { r: 'Minato', e: 'Harbor / Seaport' },
+    { r: 'Omise', e: 'Store / Shop' },
+    { r: 'Kusuriya', e: 'Drugstore / Pharmacy' },
+    { r: 'Toire', e: 'Toilet' },
+    { r: 'Daidokoro', e: 'Kitchen' },
+    { r: 'Shokudou', e: 'Cafeteria' },
+    { r: 'Yama', e: 'Mountain' },
+    { r: 'Kawa', e: 'River' },
+    { r: 'Ike', e: 'Pond' },
+    { r: 'Umi', e: 'Sea' },
+    { r: 'Kaigan', e: 'Seashore' },
+    { r: 'Machi', e: 'Town' },
+    { r: 'Mura', e: 'Village' },
+    { r: 'Inaka', e: 'Province / Rural Area' },
+    { r: 'Otera', e: 'Temple' },
+    { r: 'Niwa', e: 'Garden' },
+    { r: 'Bijutsukan', e: 'Museum' },
+    { r: 'Rizooto', e: 'Resort' },
+    { r: 'Onsen', e: 'Hot Spring' },
+    { r: 'Ryokan', e: 'Japanese Style Inn' },
 
-    // --- NATURE ---
-    { r: 'YAMA', e: 'Mountain' },
-    { r: 'FUJISAN', e: 'Mount Fuji' },
-    { r: 'KAWA', e: 'River' },
-    { r: 'IKE', e: 'Pond' },
-    { r: 'UMI', e: 'Sea' },
-    { r: 'KAIGAN', e: 'Seashore' },
-    { r: 'KI', e: 'Tree' },
+    // --- TRANSPORTATION ---
+    { r: 'Norimono', e: 'Vehicles' },
+    { r: 'Ootobai', e: 'Motorcycle' },
+    { r: 'Baiku', e: 'Motorcycle' },
+    { r: 'Jitensha', e: 'Bicycle' },
+    { r: 'Jidousha', e: 'Car' },
+    { r: 'Takushii', e: 'Taxi' },
+    { r: 'Basu', e: 'Bus' },
+    { r: 'Densha', e: 'Train' },
+    { r: 'Chikatetsu', e: 'Subway' },
+    { r: 'Shinkansen', e: 'Bullet Train' },
+    { r: 'Fune', e: 'Ship / Boat' },
+    { r: 'Hikouki', e: 'Airplane' },
+    { r: 'Aruite', e: 'On foot / Walking' },
 
-    // --- OBJECTS ---
-    { r: 'KOMPYU-TA', e: 'Computer' },
-    { r: 'PASOKON', e: 'Personal Computer' },
-    { r: 'KAMERA', e: 'Camera' },
-    { r: 'NO-TO', e: 'Notebook' },
-    { r: 'SURIPPA', e: 'Slippers' },
-    { r: 'KURUMA', e: 'Car' },
-    { r: 'HON', e: 'Book' },
-    { r: 'KOTOBA', e: 'Language / Word' },
-    { r: 'INU', e: 'Dog' },
-    { r: 'NEKO', e: 'Cat' },
-    { r: 'KABAN', e: 'Bag' },
-    { r: 'KEITAI (DENWA)', e: 'Cell Phone' },
-    { r: 'DENWA', e: 'Telephone' },
-    { r: 'KAGI', e: 'Key' },
-    { r: 'MEGANE', e: 'Eyeglasses' },
-    { r: 'TOKEI', e: 'Watch / Clock' },
-    { r: 'TE-BURU', e: 'Table' },
-    { r: 'TSUKUE', e: 'Desk' },
-    { r: 'HIKIDASHI', e: 'Drawer' },
-    { r: 'TEREBI', e: 'Television' },
-    { r: 'ISU', e: 'Chair' },
-    { r: 'BEDDO', e: 'Bed' },
-    { r: 'ENPITSU', e: 'Pencil' },
-    { r: 'BO-RUPEN', e: 'Ballpen' },
-    { r: 'PEN', e: 'Pen' },
-    { r: 'TEGAMI', e: 'Letter' },
-    { r: 'KIPPU', e: 'Ticket' },
-    { r: 'KITTE', e: 'Postal Stamp' },
-    { r: 'KYOUKASHO', e: 'Textbook' },
-    { r: 'KASA', e: 'Umbrella' },
-    { r: 'BIN', e: 'Bottle' },
-    { r: 'OKANE', e: 'Money' },
-    { r: 'EN', e: 'Yen' },
-    { r: 'PESO', e: 'Peso' },
-    { r: 'DORU', e: 'Dollar' },
-    { r: 'BANGOU', e: 'Number' },
-    { r: 'KEITAI BANGOU', e: 'Cell Phone Number' },
-    { r: 'DENWA BANGOU', e: 'Phone Number' },
-    { r: 'ZERO / REI / MARU', e: 'Zero / Circle' },
-    { r: 'KANJI', e: 'Chinese Character' },
-    { r: 'JI', e: 'Character / Letter' },
-    { r: 'MEMO', e: 'Memo' },
-    { r: 'SHASHIN', e: 'Picture' },
-    { r: 'KUSURI', e: 'Medicine' },
-    { r: 'PUREZENTO', e: 'Present / Gift' },
-    { r: 'ME-RU', e: 'Email' },
-    { r: 'REPO-TO', e: 'Report' },
-    { r: 'KUREJITTO KA-DO', e: 'Credit Card' },
-    { r: 'EIGA', e: 'Movie' },
-    { r: 'SHINBUN', e: 'Newspaper' },
-    { r: 'ZASSHI', e: 'Magazine' },
-    { r: 'SHOUSETSU', e: 'Novel' },
-    { r: 'YOMIMONO', e: 'Reading Materials' },
-    { r: 'SUPU-N', e: 'Spoon' },
-    { r: 'FO-KU', e: 'Fork' },
-    { r: 'HASHI', e: 'Chopsticks' },
-    { r: 'UTA', e: 'Song' },
-    { r: 'ONGAKU', e: 'Music' },
-    { r: 'NYU-SU', e: 'News' },
-    { r: 'TABAKO', e: 'Cigarette' },
+    // --- OBJECTS & ITEMS ---
+    { r: 'Konpyuuta', e: 'Computer' },
+    { r: 'Pasokon', e: 'Personal Computer' },
+    { r: 'Kamera', e: 'Camera' },
+    { r: 'Nooto', e: 'Notebook' },
+    { r: 'Surippa', e: 'Slippers' },
+    { r: 'Kuruma', e: 'Car' },
+    { r: 'Hon', e: 'Book' },
+    { r: 'Kotoba', e: 'Language / Word' },
+    { r: 'Inu', e: 'Dog' },
+    { r: 'Neko', e: 'Cat' },
+    { r: 'Kaban', e: 'Bag' },
+    { r: 'Keitai', e: 'Cell Phone' },
+    { r: 'Denwa', e: 'Telephone' },
+    { r: 'Kagi', e: 'Key' },
+    { r: 'Megane', e: 'Eyeglasses' },
+    { r: 'Tokei', e: 'Watch / Clock' },
+    { r: 'Teeburu', e: 'Table' },
+    { r: 'Tsukue', e: 'Desk' },
+    { r: 'Hikidashi', e: 'Drawer' },
+    { r: 'Terebi', e: 'Television' },
+    { r: 'Isu', e: 'Chair' },
+    { r: 'Ki', e: 'Tree' },
+    { r: 'Enpitsu', e: 'Pencil' },
+    { r: 'Boorupen', e: 'Ballpen' },
+    { r: 'Pen', e: 'Pen' },
+    { r: 'Tegami', e: 'Letter' },
+    { r: 'Kippu', e: 'Ticket' },
+    { r: 'Kitte', e: 'Stamp' },
+    { r: 'Kyoukasho', e: 'Textbook' },
+    { r: 'Kasa', e: 'Umbrella' },
+    { r: 'Bin', e: 'Bottle' },
+    { r: 'Okane', e: 'Money' },
+    { r: 'En', e: 'Yen' },
+    { r: 'Peso', e: 'Peso' },
+    { r: 'Doru', e: 'Dollar' },
+    { r: 'Bangou', e: 'Number' },
+    { r: 'Zero', e: 'Zero' },
+    { r: 'Rei', e: 'Example / Zero' },
+    { r: 'Maru', e: 'Circle' },
+    { r: 'Beddo', e: 'Bed' },
+    { r: 'Shashin', e: 'Picture' },
+    { r: 'Kusuri', e: 'Medicine' },
+    { r: 'Purezento', e: 'Present / Gift' },
+    { r: 'Meeru', e: 'Email' },
+    { r: 'Repooto', e: 'Report' },
+    { r: 'Kurejitto Kaado', e: 'Credit Card' },
+    { r: 'Supuun', e: 'Spoon' },
+    { r: 'Fooku', e: 'Fork' },
+    { r: 'Hashi', e: 'Chopsticks' },
+    { r: 'Tabako', e: 'Cigarette' },
 
     // --- FOOD & DRINK ---
-    { r: 'TABEMONO', e: 'Food' },
-    { r: 'NOMIMONO', e: 'Drinks' },
-    { r: 'ASAGOHAN', e: 'Breakfast' },
-    { r: 'HIRUGOHAN', e: 'Lunch' },
-    { r: 'BANGOHAN', e: 'Dinner' },
-    { r: 'GOHAN', e: 'Meal (Rice)' },
-    { r: 'RA-MEN', e: 'Ramen' },
-    { r: 'PAN', e: 'Bread' },
-    { r: 'MIKAN', e: 'Orange' },
-    { r: 'RINGO', e: 'Apple' },
-    { r: 'RYOURI', e: 'Dish / Cooking' },
-    { r: 'MIZU', e: 'Water' },
-    { r: 'OCHA', e: 'Tea' },
-    { r: 'KOUCHA', e: 'Black Tea' },
-    { r: 'GYUUNYUU', e: 'Milk' },
-    { r: 'KO-HI-', e: 'Coffee' },
-    { r: 'KO-RA', e: 'Cola' },
-    { r: 'JU-SU', e: 'Juice' },
-    { r: 'OSAKE', e: 'Liquor' },
-    { r: 'BI-RU', e: 'Beer' },
-    { r: 'WAIN', e: 'Wine' },
-    { r: 'SHOKUDOU', e: 'Cafeteria' },
-
-    // --- TRANSPORT ---
-    { r: 'NORIMONO', e: 'Vehicles' },
-    { r: 'O-TOBAI / BAIKU', e: 'Motorcycle' },
-    { r: 'JITENSHA', e: 'Bicycle' },
-    { r: 'JIDOUSHA / KURUMA', e: 'Car' },
-    { r: 'TAKUSHI-', e: 'Taxi' },
-    { r: 'BASU', e: 'Bus' },
-    { r: 'DENSHA', e: 'Train' },
-    { r: 'CHIKATETSU', e: 'Subway' },
-    { r: 'SHINKANSEN', e: 'Shinkansen' },
-    { r: 'FUNE', e: 'Ship / Boat' },
-    { r: 'HIKOUKI', e: 'Airplane' },
-    { r: 'ARUITE', e: 'On foot / By walking' },
-    { r: 'OUFUKU', e: 'Roundtrip' },
-    { r: 'KATAMICHI', e: 'One way' },
+    { r: 'Mikan', e: 'Orange' },
+    { r: 'Ringo', e: 'Apple' },
+    { r: 'Gohan', e: 'Rice / Meal' },
+    { r: 'Pan', e: 'Bread' },
+    { r: 'Tamago', e: 'Egg' },
+    { r: 'Niku', e: 'Meat' },
+    { r: 'Sakana', e: 'Fish' },
+    { r: 'Yasai', e: 'Vegetable' },
+    { r: 'Kudamono', e: 'Fruit' },
+    { r: 'Mizu', e: 'Water' },
+    { r: 'Ocha', e: 'Tea' },
+    { r: 'Koucha', e: 'Black Tea' },
+    { r: 'Gyuunyuu', e: 'Milk' },
+    { r: 'Juusu', e: 'Juice' },
+    { r: 'Biiru', e: 'Beer' },
+    { r: 'Tabemono', e: 'Food' },
+    { r: 'Asagohan', e: 'Breakfast' },
+    { r: 'Hirugohan', e: 'Lunch' },
+    { r: 'Bangohan', e: 'Dinner' },
+    { r: 'Raamen', e: 'Ramen' },
+    { r: 'Nomimono', e: 'Drinks' },
+    { r: 'Koohii', e: 'Coffee' },
+    { r: 'Koora', e: 'Cola' },
+    { r: 'Osake', e: 'Liquor / Alcohol' },
+    { r: 'Wain', e: 'Wine' },
+    { r: 'Ryouri', e: 'Dish / Cooking' },
 
     // --- EVENTS & ABSTRACT ---
-    { r: 'JUGYOU / KURASU', e: 'Class' },
-    { r: 'KAIGI / MI-TINGU', e: 'Meeting' },
-    { r: 'SHIGOTO', e: 'Work' },
-    { r: 'SHIMEKIRI', e: 'Deadline' },
-    { r: 'YASUMI', e: 'Vacation / Holiday' },
-    { r: 'KYUUKEI', e: 'Break / Rest' },
-    { r: 'KURISUMASU', e: 'Christmas' },
-    { r: 'SUPO-TSU TAIKAI', e: 'Sports Festival' },
-    { r: '(O)TANJOUBI', e: 'Birthday' },
-    { r: 'YOTEI', e: 'Schedule' },
-    { r: 'PUROJEKUTO', e: 'Project' },
-    { r: 'PA-TI-', e: 'Party' },
-    { r: 'SHIAI', e: 'Game / Match' },
-    { r: 'SHIKEN / TESUTO', e: 'Examination / Test' },
-    { r: 'NEDAN', e: 'Price' },
-    { r: 'YACHIN', e: 'Rent' },
-    { r: 'ZENBU', e: 'All / Total' },
-    { r: '(O)IKURA', e: 'How much?' },
-    { r: 'GURAI', e: 'About~' },
-    { r: 'HATACHI', e: '20 years old' },
-    { r: '(O)IKUTSU', e: 'How old? / How many?' },
-    { r: 'PE-JI', e: 'Page' },
-    { r: 'GURU-PU', e: 'Group' },
-    { r: 'SHUKUDAI', e: 'Homework' },
-    { r: 'MONDAI', e: 'Problem' },
-    { r: 'TORE-NINGU', e: 'Training' },
-    { r: 'ZEMI', e: 'Seminar' },
-    { r: 'ARUBAITO', e: 'Part-time job' },
-    { r: 'ZANGYOU', e: 'Overtime' },
-    { r: 'KAIWA', e: 'Conversation' },
-    { r: 'BUNPOU', e: 'Grammar' },
-    { r: 'BENKYOU', e: 'Study' },
-    { r: 'RENSHUU', e: 'Practice' },
-    { r: 'KOTAE', e: 'Answer' },
-    { r: 'RYOKOU', e: 'Travel / Trip' },
-    { r: 'KARAOKE', e: 'Karaoke' },
+    { r: 'Kurasu', e: 'Class' },
+    { r: 'Jugyou', e: 'Class / Lesson' },
+    { r: 'Kaigi', e: 'Meeting' },
+    { r: 'Miitingu', e: 'Meeting' },
+    { r: 'Shigoto', e: 'Work' },
+    { r: 'Shimekiri', e: 'Deadline' },
+    { r: 'Yasumi', e: 'Vacation / Holiday' },
+    { r: 'Kyuukei', e: 'Break / Rest' },
+    { r: 'Kurisumasu', e: 'Christmas' },
+    { r: 'Supootsu', e: 'Sports' },
+    { r: 'Supootsu Taikai', e: 'Sports Festival' },
+    { r: 'Tanjoubi', e: 'Birthday' },
+    { r: 'Sukejuuru', e: 'Schedule' },
+    { r: 'Yotei', e: 'Schedule / Plan' },
+    { r: 'Purojekuto', e: 'Project' },
+    { r: 'Paatii', e: 'Party' },
+    { r: 'Shiai', e: 'Game / Match' },
+    { r: 'Shiken', e: 'Exam' },
+    { r: 'Nedan', e: 'Price' },
+    { r: 'Yachin', e: 'Rent' },
+    { r: 'Zenbu', e: 'All / Total' },
+    { r: 'Peeji', e: 'Page' },
+    { r: 'Oufuku', e: 'Roundtrip' },
+    { r: 'Katamichi', e: 'One way' },
+    { r: 'Shukudai', e: 'Homework' },
+    { r: 'Mondai', e: 'Problem / Question' },
+    { r: 'Toreeningu', e: 'Training' },
+    { r: 'Zemi', e: 'Seminar' },
+    { r: 'Arubaito', e: 'Part-time job' },
+    { r: 'Zangyou', e: 'Overtime' },
+    { r: 'Kaiwa', e: 'Conversation' },
+    { r: 'Bunpou', e: 'Grammar' },
+    { r: 'Benkyou', e: 'Study' },
+    { r: 'Renshuu', e: 'Practice' },
+    { r: 'Tesuto', e: 'Test' },
+    { r: 'Kotae', e: 'Answer' },
+    { r: 'Kanji', e: 'Chinese Character' },
+    { r: 'Ji', e: 'Character / Letter' },
+    { r: 'Memo', e: 'Memo' },
+    { r: 'Eiga', e: 'Movie' },
+    { r: 'Uta', e: 'Song' },
+    { r: 'Ongaku', e: 'Music' },
+    { r: 'Nyuusu', e: 'News' },
+    { r: 'Karaoke', e: 'Karaoke' },
+    { r: 'Ryokou', e: 'Travel / Trip' },
+    { r: 'Gaikoku', e: 'Foreign Country' },
+    { r: 'Kaigai', e: 'Overseas' },
 
     // --- TIME & SEASONS ---
-    { r: 'KISETSU', e: 'Season' },
-    { r: 'HARU', e: 'Spring' },
-    { r: 'NATSU', e: 'Summer' },
-    { r: 'AKI', e: 'Autumn / Fall' },
-    { r: 'FUYU', e: 'Winter' },
-    { r: 'TSUYU', e: 'Rainy Season' },
-    { r: 'NATSUYASUMI', e: 'Summer Vacation' },
-    { r: 'SHUUMATSU', e: 'Weekend' },
-    { r: 'HEIJITSU', e: 'Weekday' },
-    { r: 'GOZEN', e: 'Morning (a.m.)' },
-    { r: 'GOGO', e: 'Afternoon (p.m.)' },
-    { r: 'JIKAN', e: 'Time' },
-    { r: 'HITOTSUKI', e: 'One month' },
-    { r: 'ITSU', e: 'When' },
-    { r: 'IMA', e: 'Now' },
-    { r: 'MAZU / HAJIMENI', e: 'First' },
-    { r: 'TSUGI', e: 'Next' },
-    { r: 'ASA', e: 'Morning' },
-    { r: 'HIRU', e: 'Noon / Daytime' },
-    { r: 'YORU / BAN', e: 'Night' },
+    { r: 'Kisetsu', e: 'Season' },
+    { r: 'Haru', e: 'Spring' },
+    { r: 'Natsu', e: 'Summer' },
+    { r: 'Aki', e: 'Autumn' },
+    { r: 'Fuyu', e: 'Winter' },
+    { r: 'Tsuyu', e: 'Rainy Season' },
+    { r: 'Natsuyasumi', e: 'Summer Vacation' },
+    { r: 'Shuumatsu', e: 'Weekend' },
+    { r: 'Heijitsu', e: 'Weekday' },
+    { r: 'Gozen', e: 'Morning (a.m.)' },
+    { r: 'Gogo', e: 'Afternoon (p.m.)' },
+    { r: 'Jikan', e: 'Time' },
+    { r: 'Asa', e: 'Morning' },
+    { r: 'Hiru', e: 'Noon / Daytime' },
+    { r: 'Yoru', e: 'Night' },
+    { r: 'Ban', e: 'Night / Evening' },
+    { r: 'Kyou', e: 'Today' },
+    { r: 'Kinou', e: 'Yesterday' },
+    { r: 'Ashita', e: 'Tomorrow' },
+    { r: 'Mainichi', e: 'Every day' },
+    { r: 'Konshu', e: 'This week' },
+    { r: 'Raishu', e: 'Next week' },
+    { r: 'Senshu', e: 'Last week' },
+    { r: 'Ima', e: 'Now' },
+    { r: 'Tsugi', e: 'Next' },
+    { r: 'Itsu', e: 'When' },
+    { r: 'Mazu', e: 'First' },
+    { r: 'Hajimeni', e: 'First' },
+    { r: 'Hitotsuki', e: 'One Month' },
 
-    // --- ADJECTIVES ---
-    { r: 'HAYAI', e: 'Early / Fast' },
-    { r: 'OSOI', e: 'Late / Slow' },
-    { r: 'KIBISHII', e: 'Strict' },
-    { r: 'ABUNAI', e: 'Dangerous' },
-    { r: 'NEMUI', e: 'Sleepy' },
-    { r: 'MAJIME (NA)', e: 'Serious / Industrious' },
-    { r: 'GENKI (NA)', e: 'Fine / Healthy' },
-    { r: 'ITSUMO', e: 'Always' },
-    { r: 'TOKIDOKI', e: 'Sometimes' },
-    { r: 'ZENZEN (~NAI)', e: 'Never / Not at all' },
-    { r: 'CHOTTO', e: 'A little' },
-    { r: 'TOTEMO / TAIHEN', e: 'Very' },
-    { r: 'AMARI (~NAI)', e: 'Not very' },
+    // --- ADJECTIVES & ADVERBS ---
+    { r: 'Ookii', e: 'Big' },
+    { r: 'Chiisai', e: 'Small' },
+    { r: 'Atarashii', e: 'New' },
+    { r: 'Furui', e: 'Old' },
+    { r: 'Ii', e: 'Good' },
+    { r: 'Warui', e: 'Bad' },
+    { r: 'Atsui', e: 'Hot' },
+    { r: 'Samui', e: 'Cold (Weather)' },
+    { r: 'Tsumetai', e: 'Cold (Touch)' },
+    { r: 'Muzukashii', e: 'Difficult' },
+    { r: 'Yasashii', e: 'Easy / Kind' },
+    { r: 'Takai', e: 'Expensive / High' },
+    { r: 'Yasui', e: 'Cheap' },
+    { r: 'Hikui', e: 'Low' },
+    { r: 'Omoshiroi', e: 'Interesting' },
+    { r: 'Oishii', e: 'Delicious' },
+    { r: 'Isogashii', e: 'Busy' },
+    { r: 'Tanoshii', e: 'Fun' },
+    { r: 'Shiroi', e: 'White' },
+    { r: 'Kuroi', e: 'Black' },
+    { r: 'Akai', e: 'Red' },
+    { r: 'Aoi', e: 'Blue' },
+    { r: 'Kirei', e: 'Beautiful / Clean' },
+    { r: 'Genki', e: 'Healthy / Energetic' },
+    { r: 'Shizuka', e: 'Quiet' },
+    { r: 'Nigiyaka', e: 'Lively' },
+    { r: 'Yuumei', e: 'Famous' },
+    { r: 'Shinsetsu', e: 'Kind' },
+    { r: 'Suki', e: 'Like' },
+    { r: 'Kirai', e: 'Dislike' },
+    { r: 'Jouzu', e: 'Skillful' },
+    { r: 'Heta', e: 'Unskillful' },
+    { r: 'Hayai', e: 'Early / Fast' },
+    { r: 'Osoi', e: 'Late / Slow' },
+    { r: 'Kibishii', e: 'Strict' },
+    { r: 'Abunai', e: 'Dangerous' },
+    { r: 'Nemui', e: 'Sleepy' },
+    { r: 'Majime', e: 'Serious / Industrious' },
+    { r: 'Itsumo', e: 'Always' },
+    { r: 'Tokidoki', e: 'Sometimes' },
+    { r: 'Zenzen', e: 'Never / Not at all' },
+    { r: 'Chotto', e: 'A little' },
+    { r: 'Totemo', e: 'Very' },
+    { r: 'Taihen', e: 'Very / Hard' },
+    { r: 'Amari', e: 'Not very (with negative)' },
 
     // --- VERBS ---
-    { r: 'OKIMASU', e: 'Wake up' },
-    { r: 'NEMASU', e: 'Sleep' },
-    { r: 'YASUMIMASU', e: 'Rest / Take a break' },
-    { r: 'HAJIMARIMASU', e: 'Start' },
-    { r: 'OWARIMASU', e: 'Finish' },
-    { r: 'HATARAKIMASU', e: 'Work' },
-    { r: 'SHIGOTO SHIMASU', e: 'Work' },
-    { r: 'ZANGYOU SHIMASU', e: 'Work overtime' },
-    { r: 'BENKYOU SHIMASU', e: 'Study' },
-    { r: 'KYUUKEI SHIMASU', e: 'Take a break' },
-    { r: 'UMAREMASU', e: 'Be born' },
-    { r: 'IKIMASU', e: 'Go' },
-    { r: 'KIMASU', e: 'Come' },
-    { r: 'KAERIMASU', e: 'Go home / Return' },
-    { r: 'MODORIMASU', e: 'Return / Go back' },
-    { r: 'KAIMONO SHIMASU', e: 'Shop' },
-    { r: 'ASOBIMASU', e: 'Enjoy / Play' },
-    { r: 'OYOGIMASU', e: 'Swim' },
-    { r: 'TABEMASU', e: 'Eat' },
-    { r: 'NOMIMASU', e: 'Drink' },
-    { r: 'YOMIMASU', e: 'Read' },
-    { r: 'KAKIMASU', e: 'Write' },
-    { r: 'KIKIMASU', e: 'Listen / Ask' },
-    { r: 'HANASHIMASU', e: 'Speak / Talk' },
-    { r: 'MIMASU', e: 'Watch / Look / See' },
-    { r: 'KAIMASU', e: 'Buy' },
-    { r: 'URIMASU', e: 'Sell' },
-    { r: 'OSHIEMASU', e: 'Teach / Tell' },
-    { r: 'UTAIMASU', e: 'Sing' },
-    { r: 'SUIMASU', e: 'Smoke' },
-    { r: '(DENWA O) KAKEMASU', e: 'Call (a phone)' }
+    { r: 'Tabemasu', e: 'To eat' },
+    { r: 'Nomimasu', e: 'To drink' },
+    { r: 'Ikimasu', e: 'To go' },
+    { r: 'Kimasu', e: 'To come' },
+    { r: 'Kaerimasu', e: 'To go home / Return' },
+    { r: 'Mimasu', e: 'To see / Watch / Look' },
+    { r: 'Kikimasu', e: 'To hear / Listen / Ask' },
+    { r: 'Yomimasu', e: 'To read' },
+    { r: 'Kakimasu', e: 'To write' },
+    { r: 'Kaimasu', e: 'To buy' },
+    { r: 'Shimasu', e: 'To do' },
+    { r: 'Benkyou shimasu', e: 'To study' },
+    { r: 'Hatarakimasu', e: 'To work' },
+    { r: 'Aimasu', e: 'To meet' },
+    { r: 'Nemasu', e: 'To sleep' },
+    { r: 'Okimasu', e: 'To wake up' },
+    { r: 'Hanashimasu', e: 'To speak / Talk' },
+    { r: 'Wakarimasu', e: 'To understand' },
+    { r: 'Arimasu', e: 'To have / exist (inanimate)' },
+    { r: 'Imasu', e: 'To have / exist (animate)' },
+    { r: 'Yasumimasu', e: 'To rest / take a holiday' },
+    { r: 'Hajimarimasu', e: 'To start' },
+    { r: 'Owarimasu', e: 'To finish' },
+    { r: 'Kyuukei shimasu', e: 'To take a break' },
+    { r: 'Umaremasu', e: 'To be born' },
+    { r: 'Urimasu', e: 'To sell' },
+    { r: 'Oshiemasu', e: 'To teach / tell' },
+    { r: 'Utaimasu', e: 'To sing' },
+    { r: 'Suimasu', e: 'To smoke' },
+    { r: 'Kakemasu', e: 'To call (phone)' },
+    { r: 'Modorimasu', e: 'To return / Go back' },
+    { r: 'Kaimono shimasu', e: 'To shop' },
+    { r: 'Asobimasu', e: 'To enjoy / Play' },
+    { r: 'Oyogimasu', e: 'To swim' },
+
+    // --- COUNTRIES & PHRASES ---
+    { r: 'Ikura', e: 'How much' },
+    { r: 'Ikutsu', e: 'How many / How old' },
+    { r: 'Gurai', e: 'About / Approximately' },
+    { r: 'Doko', e: 'Where' },
+    { r: 'Dare', e: 'Who' },
+    { r: 'Nani', e: 'What' },
+    { r: 'Doushite', e: 'Why' },
+    { r: 'Dou', e: 'How' },
+    { r: 'Hatachi', e: '20 Years Old' },
+    { r: 'Igirisu', e: 'United Kingdom' },
+    { r: 'Furansu', e: 'France' },
+    { r: 'Supein', e: 'Spain' },
+    { r: 'Indo', e: 'India' },
+    { r: 'Shingapooru', e: 'Singapore' },
+    { r: 'Mareeshia', e: 'Malaysia' },
+    { r: 'Indoneshia', e: 'Indonesia' },
+    { r: 'Tai', e: 'Thailand' },
+    { r: 'Hai', e: 'Yes' },
+    { r: 'Iie', e: 'No' },
+    { r: 'Arigatou', e: 'Thank you' },
+    { r: 'Gomen nasai', e: 'I am sorry' },
+    { r: 'Sumimasen', e: 'Excuse me' },
+    { r: 'Ohayou', e: 'Good Morning' },
+    { r: 'Konnichiwa', e: 'Hello / Good Afternoon' },
+    { r: 'Konbanwa', e: 'Good Evening' },
+    { r: 'Oyasumi', e: 'Good Night' },
+    { r: 'Sayounara', e: 'Goodbye' }
 ];
 
 // --- APP STATE ---
@@ -321,7 +392,7 @@ const reviewItemsPerPage = 50;
 let testQueue = [];
 let testIndex = 0;
 let testScore = 0;
-let testMode = 'multiple'; // 'multiple' or 'typing'
+let testMode = 'multiple';
 
 // --- DOM ELEMENTS ---
 const screens = {
@@ -336,7 +407,6 @@ const ui = {
     pageIndicator: document.getElementById('review-page-indicator'),
     prevBtn: document.getElementById('prev-page-btn'),
     nextBtn: document.getElementById('next-page-btn'),
-
     questionText: document.getElementById('question-text'),
     choicesContainer: document.getElementById('choices-container'),
     typingContainer: document.getElementById('typing-container'),
@@ -344,7 +414,6 @@ const ui = {
     progressFill: document.getElementById('progress-fill'),
     progressText: document.getElementById('progress-text'),
     finalScore: document.getElementById('final-score'),
-
     modal: document.getElementById('feedback-modal'),
     modalHeader: document.getElementById('modal-header-text'),
     modalWord: document.getElementById('modal-word-display'),
@@ -380,7 +449,6 @@ function showReview(page) {
 
     ui.pageIndicator.innerText = `Page ${currentReviewPage} of ${totalPages}`;
 
-    // Update buttons
     ui.prevBtn.disabled = currentReviewPage === 1;
     ui.prevBtn.style.opacity = currentReviewPage === 1 ? '0.5' : '1';
 
@@ -388,7 +456,6 @@ function showReview(page) {
     ui.nextBtn.style.opacity = currentReviewPage === totalPages ? '0.5' : '1';
 
     switchScreen('review');
-    // Scroll to top of list
     document.querySelector('.app-container').scrollIntoView({ behavior: 'smooth' });
 }
 
@@ -406,11 +473,11 @@ function startTest(mode) {
     testScore = 0;
     testIndex = 0;
 
-    // Shuffle full data and pick 50 items
+    // Use total count or 50, whichever is smaller
+    const testSize = Math.min(vocabData.length, 50);
     const shuffled = [...vocabData].sort(() => 0.5 - Math.random());
-    testQueue = shuffled.slice(0, 50);
+    testQueue = shuffled.slice(0, testSize);
 
-    // Setup UI
     if (testMode === 'multiple') {
         ui.choicesContainer.style.display = 'grid';
         ui.typingContainer.style.display = 'none';
@@ -425,13 +492,11 @@ function startTest(mode) {
 
 function renderQuestion() {
     const currentItem = testQueue[testIndex];
+    const testSize = testQueue.length;
+
     ui.questionText.innerText = currentItem.r;
-
-    // Update Progress
-    ui.progressText.innerText = `${testIndex + 1} / 50`;
-    ui.progressFill.style.width = `${((testIndex) / 50) * 100}%`;
-
-    // Reset Inputs
+    ui.progressText.innerText = `${testIndex + 1} / ${testSize}`;
+    ui.progressFill.style.width = `${((testIndex) / testSize) * 100}%`;
     ui.answerInput.value = '';
 
     if (testMode === 'multiple') {
@@ -443,16 +508,11 @@ function renderQuestion() {
 
 function renderMultipleChoice(currentItem) {
     ui.choicesContainer.innerHTML = '';
-
-    // 1 Correct Answer
     const correctAns = currentItem.e;
-
-    // 3 Random Distractors
     const otherWords = vocabData.filter(w => w.r !== currentItem.r);
     const shuffledOthers = otherWords.sort(() => 0.5 - Math.random()).slice(0, 3);
     const choices = [...shuffledOthers.map(w => w.e), correctAns];
 
-    // Shuffle choices
     choices.sort(() => 0.5 - Math.random());
 
     choices.forEach(choice => {
@@ -464,9 +524,6 @@ function renderMultipleChoice(currentItem) {
     });
 }
 
-// --- CHECKING ANSWERS ---
-
-// For Multiple Choice
 function checkAnswer(selected, correct) {
     const currentItem = testQueue[testIndex];
     if (selected === correct) {
@@ -477,20 +534,13 @@ function checkAnswer(selected, correct) {
     }
 }
 
-// For Typing
 function checkTypingAnswer() {
     const input = ui.answerInput.value.trim().toLowerCase();
     const currentItem = testQueue[testIndex];
-
-    // Split correct answer by '/' to handle multiple valid answers (e.g. "I / Me")
     const validAnswers = currentItem.e.toLowerCase().split('/').map(s => s.trim());
 
-    // Exact match check
     const isCorrect = validAnswers.some(ans => ans === input);
-
-    // Loose match: if input is contained within answer (e.g. "Employee" for "Company Employee")
-    // Only if input length > 3 to avoid matching simple letters
-    const isLooseCorrect = currentItem.e.toLowerCase().includes(input) && input.length > 3;
+    const isLooseCorrect = currentItem.e.toLowerCase().includes(input) && input.length > 2;
 
     if (isCorrect || isLooseCorrect) {
         testScore++;
@@ -500,18 +550,17 @@ function checkTypingAnswer() {
     }
 }
 
-// --- FEEDBACK MODAL ---
 function showFeedback(isCorrect, item) {
     ui.modalWord.innerText = item.r;
     ui.modalAnswer.innerText = item.e;
 
     if (isCorrect) {
         ui.modalHeader.innerText = "Correct!";
-        ui.modalHeader.style.color = "var(--correct-color)";
+        ui.modalHeader.style.color = "var(--correct-color, #4CAF50)";
         ui.modalHelper.innerText = "Meaning:";
     } else {
         ui.modalHeader.innerText = "Incorrect";
-        ui.modalHeader.style.color = "var(--error-color)";
+        ui.modalHeader.style.color = "var(--error-color, #F44336)";
         ui.modalHelper.innerText = "The correct answer is:";
     }
 
@@ -521,7 +570,7 @@ function showFeedback(isCorrect, item) {
 function closeModal() {
     ui.modal.style.display = 'none';
     testIndex++;
-    if (testIndex < 50) {
+    if (testIndex < testQueue.length) {
         renderQuestion();
     } else {
         endTest();
@@ -529,11 +578,10 @@ function closeModal() {
 }
 
 function endTest() {
-    ui.finalScore.innerText = `${testScore} / 50`;
+    ui.finalScore.innerText = `${testScore} / ${testQueue.length}`;
     switchScreen('result');
 }
 
-// Enter Key Support for Typing Test
 ui.answerInput.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
         if (ui.modal.style.display === 'flex') {
